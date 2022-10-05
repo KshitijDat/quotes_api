@@ -1,15 +1,23 @@
 from flask import Flask
-import pandas as pd
+from requests import get
+from json import loads
 
 app = Flask(__name__)
 
+#Fetch Quotes from zenquotes.io 
+def get_quote():
+    response = get("https://zenquotes.io/api/random")
+    json_data = loads(response.text)
+    quotes = json_data[0]['q'] + "-" + json_data[0]['a']
+    return (quotes)
+
 @app.route("/")
 def index():
-    return "<h3>Welcome to Quotes API! Go to /getquote to get a random quote in form of json</h3>"
+    return "<h3>Welcome to Quotes API! Go to <a href='/getquote'>/getquote</a> to get a random quote in form of json</h3>"
 
 @app.route("/getquote")
 def fetchquote():
-    return "this is a quote!"
+    return get_quote()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True,port=8000)
