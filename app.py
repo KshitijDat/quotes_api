@@ -1,13 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template
 import pandas as pd
 from requests import get
-from json import loads
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "<h3>Welcome to Quotes API! Go to <code> <a href='/getquote'> /getquote </a> </code> to get a random quote in form of json</h3>"
+    return render_template('quotes.html')
 
 @app.route("/getquote")
 def fetchquote():
