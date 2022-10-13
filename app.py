@@ -1,4 +1,3 @@
-from urllib import request
 from flask import Flask
 import pandas as pd
 from requests import get
